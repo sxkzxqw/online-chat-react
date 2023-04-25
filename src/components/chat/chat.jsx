@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Context } from '../..';
 import Loader from '../Loader/Loader';
@@ -23,6 +23,7 @@ const Chat = () => {
     const [value, setValue] = useState("");
 
     const [messagesData, setMessagesData] = useState([]);
+    const refer = useRef(null);
 
     const sendMessage = async () => {
         try {
@@ -39,6 +40,7 @@ const Chat = () => {
             console.error("Error adding document: ", e);
         }
         setValue("");
+        refer.current.scrollIntoView({ behavior: 'smooth' })
     };
 
     const getMessages = async () => {
@@ -59,31 +61,43 @@ const Chat = () => {
         getMessages();
     }, []);
 
+    if (messagesData.length > 0) {
+        setTimeout(() => {
+            refer.current.scrollIntoView({ behavior: 'smooth' })
+        }, 100);
+    }
+
     return (
         <Container>
             <Grid container
                 justifyContent={"center"}
-                style={{ height: window.innerHeight - 50, marginTop: 20 }}>
-                <div style={{ width: '80%', height: '60vh', border: '1px solid gray', overflowY: 'auto' }}>
-                    {messagesData?.map((message, index) =>
-                        <div style={{
-                            margin: 10,
-                            border: user.uid === message.uid ? '2px solid blue' : '2px dashed red',
-                            marginLeft: user.uid === message.uid ? 'auto' : '10px',
-                            width: 'fit-content',
-                            padding: 5,
-                        }}
-                            key={index}
-                            className={styles.message}
-                        >
-                            <Grid container>
-                                <Avatar src={message.photoURL} />
-                                <div>{message.displayName}</div>
-                            </Grid>
-                            <div>{message.text}</div>
-                        </div>
-                    )}
-                </div>
+                style={{ height: window.innerHeight - 50, paddingTop: 20 }}>
+                {messagesData.length > 0
+                    ? <div style={{ width: '80%', height: '60vh', border: '1px solid gray', overflowY: 'auto' }}>
+                        {messagesData?.map((message, index) =>
+                            <div style={{
+                                margin: 10,
+                                border: user.uid === message.uid ? '2px solid blue' : '2px dashed red',
+                                marginLeft: user.uid === message.uid ? 'auto' : '10px',
+                                width: 'fit-content',
+                                padding: 10,
+                                borderRadius: '15px',
+                                background: '#F6DDFF'
+                            }}
+                                key={index}
+                                className={styles.message}
+                            >
+                                <Grid container alignItems={'center'} justifyContent={'center'} gap={'15px'}>
+                                    <Avatar src={message.photoURL} />
+                                    <div>{message.displayName}</div>
+                                </Grid>
+                                <div>{message.text}</div>
+                            </div>
+                        )}
+                        <div ref={refer}></div>
+                    </div>
+                    : <Loader />
+                }
                 <Grid
                     container
                     direction={"column"}
@@ -96,8 +110,12 @@ const Chat = () => {
                         variant={"outlined"}
                         value={value}
                         onChange={e => setValue(e.target.value)}
+                        style={{ marginBottom: '20px' }}
                     />
-                    <Button onClick={sendMessage} variant={"outlined"}>Отправить</Button>
+                    {value.length > 0
+                        ? <Button onClick={sendMessage} variant={"outlined"}>Отправить</Button>
+                        : <Button onClick={sendMessage} variant={"outlined"} disabled>Отправить</Button>
+                    }
                 </Grid>
             </Grid>
         </Container>
