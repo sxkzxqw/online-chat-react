@@ -5,6 +5,8 @@ import chat from '../chat/chat';
 import login from '../login/login';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Context } from '../..';
+import Login from '../login/login';
+import Chat from '../chat/chat';
 
 const AppRouter = () => {
     const { auth } = useContext(Context)
@@ -18,7 +20,7 @@ const AppRouter = () => {
                 {privateRoutes.map((route, index) => {
                     return <Route path={route.path} element={route.Component} key={index} />
                 })}
-                <Route path='*' component={chat} />
+                <Route path='*' element={<Chat />} />
             </Routes>
         </>
     )
@@ -29,7 +31,7 @@ const AppRouter = () => {
                     {publicRoutes.map((route, index) => {
                         return <Route path={route.path} element={route.Component} key={index} />
                     })}
-                    <Route path='*' component={login} />
+                    <Route path='*' element={<Login />} />
                 </Routes>
             </>
         )
