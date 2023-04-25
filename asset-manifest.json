@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/online-chat-react/static/css/main.2b02dfda.css",
+    "main.js": "/online-chat-react/static/js/main.f3c57ad1.js",
+    "index.html": "/online-chat-react/index.html",
+    "main.2b02dfda.css.map": "/online-chat-react/static/css/main.2b02dfda.css.map",
+    "main.f3c57ad1.js.map": "/online-chat-react/static/js/main.f3c57ad1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2b02dfda.css",
+    "static/js/main.f3c57ad1.js"
+  ]
+}
