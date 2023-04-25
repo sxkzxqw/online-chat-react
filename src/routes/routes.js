@@ -1,4 +1,4 @@
-import Chat from "../components/chat/chat";
+import Chat from "../components/chat/Chat";
 import Login from "../components/login/login";
 import { CHAT_ROUTE, LOGIN_ROUTE } from "../utils/constants";
 

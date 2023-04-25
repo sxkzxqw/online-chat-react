@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { initializeApp } from "firebase/app";
-import { getStorage } from 'firebase/storage'
 import { getAuth } from 'firebase/auth'
 import firebase from "firebase/compat/app";
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBqMMhoOuLLrJ9EQDRkef8fy3NhvpUR-9I",
@@ -21,7 +21,7 @@ initializeApp(firebaseConfig)
 
 const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app);
-export const firestore = getStorage(app)
+export const db = getFirestore(app)
 
 export const Context = createContext(null)
 
@@ -32,7 +32,7 @@ root.render(
       value={{
         firebase,
         auth,
-        firestore
+        db
       }}
     >
       <App />
