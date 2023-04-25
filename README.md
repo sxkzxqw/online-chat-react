@@ -6,7 +6,7 @@
 
 **Ссылка на сайт:**
 
-* [ссылка на сайт в github pages](https://sxkzxqw.github.io/online-chat-react/login)
+* [ссылка на сайт в github pages](https://sxkzxqw.github.io/online-chat-react/)
 
 **Технологии**
 
